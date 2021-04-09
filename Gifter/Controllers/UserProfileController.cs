@@ -21,6 +21,13 @@ namespace Gifter.Controllers
             return Ok(_userProfileRepository.GetAll());
         }
 
+        [HttpGet("GetWithPosts/{id}")]
+        public IActionResult GetWithPosts(int id)
+        {         
+            var posts = _userProfileRepository.GetUserAndPosts(id);
+            return Ok(posts);          
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

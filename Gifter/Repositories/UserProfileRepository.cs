@@ -46,6 +46,65 @@ namespace Gifter.Repositories
             }
         }
 
+        public UserProfile GetUserAndPosts(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT 
+                    up.Id AS UserId, [Name], Email, up.ImageUrl AS UserImageUrl, Bio, up.DateCreated AS UserDateCreated,
+                    p.Id AS PostId, Title, p.ImageUrl AS PostImageUrl, Caption, p.DateCreated AS PostDateCreated
+                    FROM UserProfile up
+                    JOIN Post p ON up.Id = p.UserProfileId
+                    WHERE up.Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+                    UserProfile user = null;
+
+                    while (reader.Read())
+                    {
+                        var userId = DbUtils.GetInt(reader, "UserId");
+
+                        if (user == null)
+                        {
+                            user = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                ImageUrl = DbUtils.GetString(reader, "UserImageUrl"),
+                                Bio = DbUtils.GetString(reader, "Bio"),
+                                DateCreated = DbUtils.GetDateTime(reader, "UserDateCreated"),
+                                Posts = new List<Post>()
+                            };
+                        };
+
+                        if (DbUtils.IsNotDbNull(reader, "PostId"))
+                        {
+                            user.Posts.Add(new Post()
+                            {
+                                Id = DbUtils.GetInt(reader, "PostId"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                                Caption = DbUtils.GetString(reader, "Caption"),
+                                DateCreated = DbUtils.GetDateTime(reader, "PostDateCreated"),
+                                ImageUrl = DbUtils.GetString(reader, "PostImageUrl"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserId"),
+                            });
+                        }
+                    }
+
+                    reader.Close();
+
+                    return user;
+                }
+            }
+        }
+
         public UserProfile GetById(int id)
         {
             using (var conn = Connection)
