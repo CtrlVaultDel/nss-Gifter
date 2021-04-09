@@ -21,6 +21,13 @@ namespace Gifter.Controllers
             return Ok(_postRepository.GetAll());
         }
 
+        [HttpGet("GetWithComments")]
+        public IActionResult GetWithComments()
+        {
+            var posts = _postRepository.GetAllWithComments();
+            return Ok(posts);
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -32,11 +39,11 @@ namespace Gifter.Controllers
             return Ok(post);
         }
 
-        [HttpGet("GetWithComments")]
-        public IActionResult GetWithComments()
+        [HttpGet("GetByIdWithComments/{id}")]
+        public IActionResult GetByIdWithComments(int id)
         {
-            var posts = _postRepository.GetAllWithComments();
-            return Ok(posts);
+            var post = _postRepository.GetByIdWithComments(id);
+            return Ok(post);
         }
 
         [HttpPost]
