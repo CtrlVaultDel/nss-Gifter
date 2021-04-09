@@ -21,7 +21,7 @@ namespace Gifter.Repositories
                     cmd.CommandText = @"
                 SELECT Id, [Name], Email, ImageUrl, Bio, DateCreated
                 FROM UserProfile up
-                ORDER BY p.Name";
+                ORDER BY up.Name";
 
                     var reader = cmd.ExecuteReader();
 
@@ -56,8 +56,7 @@ namespace Gifter.Repositories
                     cmd.CommandText = @"
                         SELECT Id, [Name], Email, ImageUrl, Bio, DateCreated
                         FROM UserProfile up
-                        WHERE Id = @id
-                        ORDER BY p.Name";
+                        WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
