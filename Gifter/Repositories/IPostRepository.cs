@@ -1,5 +1,6 @@
 ﻿using Gifter.Models;
 using System.Collections.Generic;
+using System;
 
 namespace Gifter.Repositories
 {
@@ -10,6 +11,7 @@ namespace Gifter.Repositories
         Post GetById(int id);
         Post GetByIdWithComments(int id);
         List<Post> Search(string criterion, bool sortDescending);
+        List<Post> SearchByDate(DateTime date);
         void Add(Post post);
         void Delete(int id);
         void Update(Post post);
