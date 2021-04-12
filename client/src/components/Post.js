@@ -11,6 +11,16 @@ const Post = ({ post }) => {
           <strong>{post.title}</strong>
         </p>
         <p>{post.caption}</p>
+        <h5>--- Comments ---</h5>
+        {post.comments != null && post.comments.length > 0 ? 
+        (
+            <div>
+                {post.comments.map(comment => <p>{comment.userProfileId}: {comment.message}</p>)}
+            </div>
+        ) : 
+        (
+            <div>No Comments</div>
+        )}
       </CardBody>
     </Card>
   );
