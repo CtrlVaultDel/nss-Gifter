@@ -2,11 +2,13 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import PostForm from "./PostForm";
+import SearchBar from "./SearchBar";
 
-const ApplicationViews = () => {
+const ApplicationView = () => {
   return (
     <Switch>
       <Route path="/" exact>
+        <SearchBar />
         <PostList />
       </Route>
 
@@ -19,4 +21,4 @@ const ApplicationViews = () => {
   );
 };
 
-export default ApplicationViews;
+export default ApplicationView;

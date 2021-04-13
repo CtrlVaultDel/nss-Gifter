@@ -1,13 +1,16 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { PostContext } from "../providers/PostProvider";
 
 const PostForm = () => {
     const {register, handleSubmit} = useForm();
     const { addPost } = useContext(PostContext);
+    const history = useHistory();
 
     const onSubmit = newPost => {
         addPost(newPost)
+        .then(() => history.push("/"));
     };
 
     return (
