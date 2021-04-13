@@ -15,7 +15,7 @@ const Post = ({ post }) => {
         {post.comments != null && post.comments.length > 0 ? 
         (
             <div>
-                {post.comments.map(comment => <p>{comment.userProfileId}: {comment.message}</p>)}
+                {post.comments.map(comment => <p key={comment.id}>{comment.userProfileId}: {comment.message}</p>)}
             </div>
         ) : 
         (
