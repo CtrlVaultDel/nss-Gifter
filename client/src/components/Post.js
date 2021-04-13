@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   return (
@@ -8,19 +9,11 @@ const Post = ({ post }) => {
       <CardImg top src={post.imageUrl} alt={post.title} />
       <CardBody>
         <p>
-          <strong>{post.title}</strong>
+            <Link to={`posts/${post.id}`}>
+                <strong>{post.title}</strong>
+            </Link>
         </p>
         <p>{post.caption}</p>
-        <h5>--- Comments ---</h5>
-        {post.comments != null && post.comments.length > 0 ? 
-        (
-            <div>
-                {post.comments.map(comment => <p key={comment.id}>{comment.userProfileId}: {comment.message}</p>)}
-            </div>
-        ) : 
-        (
-            <div>No Comments</div>
-        )}
       </CardBody>
     </Card>
   );

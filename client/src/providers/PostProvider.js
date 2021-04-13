@@ -11,6 +11,11 @@ export const PostProvider = (props) => {
       .then(setPosts);
   };
 
+  const getPostWithComments = (id) => {
+    return fetch(`/api/post/GetWithComments/${id}`)
+    .then((res) => res.json());
+};
+
   const getPostsBySearch = (q, sortDesc) => {
       return fetch (`api/post/search?q=${q}&sortDesc=${sortDesc}`)
       .then((res) => res.json())
@@ -28,7 +33,7 @@ export const PostProvider = (props) => {
   };
 
   return (
-    <PostContext.Provider value={{ posts, getAllPostsWithComments, getPostsBySearch, addPost }}>
+    <PostContext.Provider value={{ posts, getAllPostsWithComments, getPostWithComments, getPostsBySearch, addPost }}>
       {props.children}
     </PostContext.Provider>
   );
