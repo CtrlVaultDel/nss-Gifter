@@ -94,6 +94,16 @@ namespace Gifter.Repositories
                                 DateCreated = DbUtils.GetDateTime(reader, "PostDateCreated"),
                                 ImageUrl = DbUtils.GetString(reader, "PostImageUrl"),
                                 UserProfileId = DbUtils.GetInt(reader, "UserId"),
+                                UserProfile = new UserProfile()
+                                {
+                                    Id = DbUtils.GetInt(reader, "UserId"),
+                                    Name = DbUtils.GetString(reader, "Name"),
+                                    Email = DbUtils.GetString(reader, "Email"),
+                                    ImageUrl = DbUtils.GetString(reader, "UserImageUrl"),
+                                    Bio = DbUtils.GetString(reader, "Bio"),
+                                    DateCreated = DbUtils.GetDateTime(reader, "UserDateCreated"),
+                                    Posts = new List<Post>()
+                                }
                             });
                         }
                     }

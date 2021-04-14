@@ -22,10 +22,9 @@ const UserPosts = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
+        <h4>{user.name} Posts</h4>
         <div className="cards-column">
-          {user.posts.map((post) => {
-            <Post key={post.id} post={post} />
-        })}
+          {user.posts.map((p) => <Post key={p.id} post={p} />)}
         </div>
       </div>
     </div>
